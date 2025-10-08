@@ -27,28 +27,28 @@ const Skills = () => {
 
   const skillsData = {
     languages: [
-      { name: 'HTML5', icon: <FaHtml5 />, level: 95, color: '#e34f26', experience: '3+ years' },
-      { name: 'CSS3', icon: <FaCss3Alt />, level: 90, color: '#1572b6', experience: '3+ years' },
-      { name: 'JavaScript', icon: <FaJs />, level: 92, color: '#f7df1e', experience: '3+ years' },
-      { name: 'TypeScript', icon: <FaJs />, level: 80, color: '#3178c6', experience: '2 years' }
+      { name: 'HTML5', icon: <FaHtml5 />, level: 95, color: '#e34f26',  },
+      { name: 'CSS3', icon: <FaCss3Alt />, level: 90, color: '#1572b6', },
+      { name: 'JavaScript', icon: <FaJs />, level: 92, color: '#f7df1e', },
+      { name: 'TypeScript', icon: <FaJs />, level: 80, color: '#3178c6', }
     ],
     frontend: [
-      { name: 'React.js', icon: <FaReact />, level: 90, color: '#61dafb', experience: '2+ years' },
-      { name: 'Angular', icon: <FaAngular />, level: 75, color: '#dd0031', experience: '1 year' },
-      { name: 'Bootstrap', icon: <FaBootstrap />, level: 88, color: '#7952b3', experience: '3 years' }
+      { name: 'React.js', icon: <FaReact />, level: 90, color: '#61dafb',  },
+      { name: 'Angular', icon: <FaAngular />, level: 75, color: '#dd0031', },
+      { name: 'Bootstrap', icon: <FaBootstrap />, level: 88, color: '#7952b3', }
     ],
     backend: [
-      { name: 'Node.js', icon: <FaNodeJs />, level: 85, color: '#339933', experience: '2+ years' },
-      { name: 'Express.js', icon: <SiExpress />, level: 83, color: '#000000', experience: '2 years' }
+      { name: 'Node.js', icon: <FaNodeJs />, level: 85, color: '#339933', },
+      { name: 'Express.js', icon: <SiExpress />, level: 83, color: '#000000',  }
     ],
     database: [
-      { name: 'MongoDB', icon: <SiMongodb />, level: 82, color: '#47a248', experience: '2 years' },
-      { name: 'Firebase', icon: <FaFire />, level: 78, color: '#ffca28', experience: '1.5 years' }
+      { name: 'MongoDB', icon: <SiMongodb />, level: 82, color: '#47a248', },
+      { name: 'Firebase', icon: <FaFire />, level: 78, color: '#ffca28',  }
     ],
     tools: [
-      { name: 'GitHub', icon: <FaGitAlt />, level: 88, color: '#181717', experience: '3 years' },
-      { name: 'Postman', icon: <SiPostman />, level: 85, color: '#ff6c37', experience: '2 years' },
-      { name: 'Thunder Client', icon: <SiThunderbird />, level: 80, color: '#7c3aed', experience: '1.5 years' }
+      { name: 'GitHub', icon: <FaGitAlt />, level: 88, color: '#181717', },
+      { name: 'Postman', icon: <SiPostman />, level: 85, color: '#ff6c37',  },
+      { name: 'Thunder Client', icon: <SiThunderbird />, level: 80, color: '#7c3aed',  }
     ]
   };
 

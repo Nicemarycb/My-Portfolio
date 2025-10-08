@@ -96,8 +96,8 @@ const Projects = () => {
   const categories = [
     { id: 'all', name: 'All Projects', count: projects.length },
     { id: 'fullstack', name: 'Full Stack', count: projects.filter(p => p.category === 'fullstack').length },
-    { id: 'frontend', name: 'Frontend', count: projects.filter(p => p.category === 'frontend').length },
-    { id: 'backend', name: 'Backend', count: projects.filter(p => p.category === 'backend').length }
+    // { id: 'frontend', name: 'Frontend', count: projects.filter(p => p.category === 'frontend').length },
+    // { id: 'backend', name: 'Backend', count: projects.filter(p => p.category === 'backend').length }
   ];
 
   const filteredProjects = activeFilter === 'all' 

@@ -28,49 +28,49 @@ const Header = () => {
       path: '/', 
       section: 'home', 
       icon: <FaHome />,
-      badge: null
+  
     },
     { 
       name: 'About', 
       path: '/about', 
       section: 'about', 
       icon: <FaUser />,
-      badge: null
+    
     },
     { 
       name: 'Experience', 
       path: '/experience', 
       section: 'experience', 
       icon: <FaBriefcase />,
-      badge: '3+'
+     
     },
     { 
       name: 'Education', 
       path: '/education', 
       section: 'education', 
       icon: <FaGraduationCap />,
-      badge: '4'
+   
     },
     { 
       name: 'Skills', 
       path: '/skills', 
       section: 'skills', 
       icon: <FaCode />,
-      badge: '15+'
+    
     },
     { 
       name: 'Projects', 
       path: '/projects', 
       section: 'projects', 
       icon: <FaProjectDiagram />,
-      badge: '3'
+    
     },
     { 
       name: 'Contact', 
       path: '/contact', 
       section: 'contact', 
       icon: <FaEnvelope />,
-      badge: 'Hire'
+     
     }
   ];
 
@@ -376,7 +376,7 @@ const Header = () => {
         
         .brand-title {
           font-size: 0.7rem;
-          color: #94a3b8;
+          color: #474a4eff;
           font-weight: 500;
         }
         
