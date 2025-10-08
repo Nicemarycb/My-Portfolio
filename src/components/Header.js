@@ -1,4 +1,4 @@
-// src/components/Header.js - Enhanced with Advanced Animations & Design
+// src/components/Header.js - Fixed with white name color and corrected mobile dropdown
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
@@ -28,49 +28,42 @@ const Header = () => {
       path: '/', 
       section: 'home', 
       icon: <FaHome />,
-  
     },
     { 
       name: 'About', 
       path: '/about', 
       section: 'about', 
       icon: <FaUser />,
-    
     },
     { 
       name: 'Experience', 
       path: '/experience', 
       section: 'experience', 
       icon: <FaBriefcase />,
-     
     },
     { 
       name: 'Education', 
       path: '/education', 
       section: 'education', 
       icon: <FaGraduationCap />,
-   
     },
     { 
       name: 'Skills', 
       path: '/skills', 
       section: 'skills', 
       icon: <FaCode />,
-    
     },
     { 
       name: 'Projects', 
       path: '/projects', 
       section: 'projects', 
       icon: <FaProjectDiagram />,
-    
     },
     { 
       name: 'Contact', 
       path: '/contact', 
       section: 'contact', 
       icon: <FaEnvelope />,
-     
     }
   ];
 
@@ -169,8 +162,9 @@ const Header = () => {
       >
         <Navbar 
           expand="lg" 
-          sticky="top" 
+          fixed="top" 
           className={`custom-navbar ${scrolled ? 'navbar-scrolled' : ''}`}
+          expanded={mobileOpen}
         >
           <Container>
             {/* Brand Logo */}
@@ -198,7 +192,7 @@ const Header = () => {
               </Navbar.Brand>
             </motion.div>
 
-            {/* Desktop Navigation */}
+            {/* Mobile Toggle Button */}
             <Navbar.Toggle 
               aria-controls="basic-navbar-nav"
               className="custom-toggler"
@@ -212,7 +206,8 @@ const Header = () => {
               </motion.div>
             </Navbar.Toggle>
 
-            <Navbar.Collapse id="basic-navbar-nav">
+            {/* Navigation Menu */}
+            <Navbar.Collapse id="basic-navbar-nav" in={mobileOpen}>
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -234,14 +229,6 @@ const Header = () => {
                       >
                         <span className="nav-icon">{item.icon}</span>
                         <span className="nav-text">{item.name}</span>
-                        {item.badge && (
-                          <Badge 
-                            bg={item.section === 'contact' ? 'success' : 'primary'} 
-                            className="nav-badge"
-                          >
-                            {item.badge}
-                          </Badge>
-                        )}
                         {isActive(item.section) && (
                           <motion.div
                             layoutId="activeIndicator"
@@ -270,50 +257,6 @@ const Header = () => {
               className="mobile-menu-overlay"
               onClick={() => setMobileOpen(false)}
             />
-            <motion.div
-              variants={mobileMenuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-              className="mobile-menu"
-            >
-              <div className="mobile-menu-header">
-                <h5>Navigation</h5>
-                <button 
-                  className="close-menu"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <FaTimes />
-                </button>
-              </div>
-              <div className="mobile-nav-items">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Link
-                      to={item.path}
-                      className={`mobile-nav-item ${isActive(item.section) ? 'active' : ''}`}
-                      onClick={() => handleNavClick(item.section)}
-                    >
-                      <span className="mobile-nav-icon">{item.icon}</span>
-                      <span className="mobile-nav-text">{item.name}</span>
-                      {item.badge && (
-                        <Badge 
-                          bg={item.section === 'contact' ? 'success' : 'primary'} 
-                          className="mobile-nav-badge"
-                        >
-                          {item.badge}
-                        </Badge>
-                      )}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
           </>
         )}
       </AnimatePresence>
@@ -371,12 +314,12 @@ const Header = () => {
         .brand-name {
           font-size: 1.3rem;
           font-weight: bold;
-          color: #edf5ffff;
+          color: #ffffff !important; /* Changed to white */
         }
         
         .brand-title {
-          font-size: 1.7rem;
-          color: #edf5ffff;
+          font-size: 0.7rem;
+          color: #ffffff !important; /* Changed to white */
           font-weight: 500;
         }
         
@@ -434,12 +377,6 @@ const Header = () => {
           font-size: 0.9rem;
         }
         
-        .nav-badge {
-          font-size: 0.6rem;
-          padding: 4px 8px;
-          border-radius: 12px;
-        }
-        
         .active-indicator {
           position: absolute;
           bottom: -8px;
@@ -451,7 +388,7 @@ const Header = () => {
           border-radius: 50%;
         }
         
-        /* Mobile Menu Styles */
+        /* Mobile Menu Overlay */
         .mobile-menu-overlay {
           position: fixed;
           top: 0;
@@ -463,96 +400,20 @@ const Header = () => {
           z-index: 1040;
         }
         
-        .mobile-menu {
-          position: fixed;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          width: 300px;
-          background: rgba(15, 23, 42, 0.98);
-          backdrop-filter: blur(20px);
-          z-index: 1050;
-          padding: 20px;
-          border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .mobile-menu-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 30px;
-          padding-bottom: 15px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .mobile-menu-header h5 {
-          color: white;
-          margin: 0;
-        }
-        
-        .close-menu {
-          background: none;
-          border: none;
-          color: white;
-          font-size: 1.2rem;
-          padding: 5px;
-          border-radius: 5px;
-          transition: all 0.3s ease;
-        }
-        
-        .close-menu:hover {
-          background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .mobile-nav-items {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-        
-        .mobile-nav-item {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 15px 20px;
-          color: #cbd5e1;
-          text-decoration: none;
-          border-radius: 12px;
-          transition: all 0.3s ease;
-          position: relative;
-        }
-        
-        .mobile-nav-item:hover,
-        .mobile-nav-item.active {
-          color: white;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .mobile-nav-icon {
-          font-size: 1.1rem;
-          width: 20px;
-          display: flex;
-          justify-content: center;
-        }
-        
-        .mobile-nav-text {
-          flex: 1;
-          font-weight: 500;
-        }
-        
-        .mobile-nav-badge {
-          font-size: 0.7rem;
-          padding: 4px 8px;
-        }
-        
+        /* Mobile Responsive Styles */
         @media (max-width: 991.98px) {
           .navbar-collapse {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
             background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 0 0 20px 20px;
             padding: 20px;
             margin-top: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
           }
           
           .custom-nav {
@@ -564,6 +425,7 @@ const Header = () => {
           .nav-link-custom {
             justify-content: flex-start;
             margin: 2px 0;
+            padding: 15px 20px !important;
           }
         }
         
@@ -574,10 +436,6 @@ const Header = () => {
           
           .brand-title {
             font-size: 0.6rem;
-          }
-          
-          .mobile-menu {
-            width: 280px;
           }
         }
       `}</style>
