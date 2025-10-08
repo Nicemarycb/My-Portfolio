@@ -318,7 +318,7 @@ const Skills = () => {
       {/* Custom CSS */}
       <style jsx>{`
         .bg-gradient-skills {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #5df1a0ff 0%, #b8ebcfff 100%);
           padding: 80px 0;
           position: relative;
           overflow: hidden;
