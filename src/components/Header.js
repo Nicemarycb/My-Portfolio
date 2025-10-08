@@ -1,6 +1,6 @@
-// src/components/Header.js - Fixed with white name color and corrected mobile dropdown
+// src/components/Header.js - Fixed with white name and working mobile view
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -71,27 +71,11 @@ const Header = () => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50;
       setScrolled(isScrolled);
-
-      // Update active section based on scroll position
-      if (location.pathname === '/') {
-        const sections = navItems.map(item => item.section);
-        const currentSection = sections.find(section => {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            return rect.top <= 100 && rect.bottom >= 100;
-          }
-          return false;
-        });
-        if (currentSection) {
-          setActiveSection(currentSection);
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+  }, []);
 
   const handleNavClick = (sectionId) => {
     if (location.pathname === '/') {
@@ -109,47 +93,6 @@ const Header = () => {
       return location.pathname === `/${section}`;
     }
     return activeSection === section;
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const mobileMenuVariants = {
-    closed: {
-      opacity: 0,
-      x: '100%',
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
   };
 
   return (
@@ -207,59 +150,37 @@ const Header = () => {
             </Navbar.Toggle>
 
             {/* Navigation Menu */}
-            <Navbar.Collapse id="basic-navbar-nav" in={mobileOpen}>
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <Nav className="ms-auto custom-nav">
-                  {navItems.map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      variants={itemVariants}
-                      whileHover={{ y: -2 }}
-                      whileTap={{ y: 0 }}
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto custom-nav">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    <Nav.Link
+                      as={Link}
+                      to={item.path}
+                      className={`nav-link-custom ${isActive(item.section) ? 'active' : ''}`}
+                      onClick={() => handleNavClick(item.section)}
                     >
-                      <Nav.Link
-                        as={Link}
-                        to={item.path}
-                        className={`nav-link-custom ${isActive(item.section) ? 'active' : ''}`}
-                        onClick={() => handleNavClick(item.section)}
-                      >
-                        <span className="nav-icon">{item.icon}</span>
-                        <span className="nav-text">{item.name}</span>
-                        {isActive(item.section) && (
-                          <motion.div
-                            layoutId="activeIndicator"
-                            className="active-indicator"
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                      </Nav.Link>
-                    </motion.div>
-                  ))}
-                </Nav>
-              </motion.div>
+                      <span className="nav-icon">{item.icon}</span>
+                      <span className="nav-text">{item.name}</span>
+                      {isActive(item.section) && (
+                        <motion.div
+                          layoutId="activeIndicator"
+                          className="active-indicator"
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                    </Nav.Link>
+                  </motion.div>
+                ))}
+              </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </motion.div>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="mobile-menu-overlay"
-              onClick={() => setMobileOpen(false)}
-            />
-          </>
-        )}
-      </AnimatePresence>
 
       {/* Custom CSS */}
       <style jsx>{`
@@ -291,9 +212,11 @@ const Header = () => {
         }
         
         .brand-logo {
-          text-decoration: none;
+          text-decoration: none !important;
           color: white !important;
           transition: all 0.3s ease;
+          padding: 0 !important;
+          margin: 0 !important;
         }
         
         .brand-logo:hover {
@@ -314,26 +237,32 @@ const Header = () => {
         .brand-name {
           font-size: 1.3rem;
           font-weight: bold;
-          color: #ffffff !important; /* Changed to white */
+          color: #ffffff !important; /* WHITE COLOR */
+          margin: 0;
+          padding: 0;
         }
         
         .brand-title {
           font-size: 0.7rem;
-          color: #ffffff !important; /* Changed to white */
+          color: #ffffff !important; /* WHITE COLOR */
           font-weight: 500;
+          margin: 0;
+          padding: 0;
         }
         
         .custom-toggler {
-          border: none;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 8px 12px;
-          color: white;
-          font-size: 1.2rem;
+          border: none !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+          border-radius: 8px !important;
+          padding: 8px 12px !important;
+          color: white !important;
+          font-size: 1.2rem !important;
+          box-shadow: none !important;
         }
         
         .custom-toggler:focus {
-          box-shadow: none;
+          box-shadow: none !important;
+          outline: none !important;
         }
         
         .custom-nav {
@@ -344,7 +273,7 @@ const Header = () => {
         
         .nav-link-custom {
           color: #cbd5e1 !important;
-          text-decoration: none;
+          text-decoration: none !important;
           padding: 12px 16px !important;
           border-radius: 12px;
           transition: all 0.3s ease;
@@ -354,17 +283,19 @@ const Header = () => {
           gap: 8px;
           font-weight: 500;
           margin: 0 2px;
+          background: transparent !important;
+          border: none !important;
         }
         
         .nav-link-custom:hover {
           color: white !important;
-          background: rgba(102, 126, 234, 0.1);
+          background: rgba(102, 126, 234, 0.1) !important;
           transform: translateY(-2px);
         }
         
         .nav-link-custom.active {
           color: white !important;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         }
         
         .nav-icon {
@@ -388,55 +319,63 @@ const Header = () => {
           border-radius: 50%;
         }
         
-        /* Mobile Menu Overlay */
-        .mobile-menu-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          backdrop-filter: blur(5px);
-          z-index: 1040;
-        }
-        
         /* Mobile Responsive Styles */
         @media (max-width: 991.98px) {
           .navbar-collapse {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 0 0 20px 20px;
-            padding: 20px;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: fixed !important;
+            top: 80px !important;
+            left: 0 !important;
+            right: 0 !important;
+            background: rgba(15, 23, 42, 0.98) !important;
+            backdrop-filter: blur(20px) !important;
+            padding: 20px !important;
+            margin: 0 !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+            z-index: 1050 !important;
           }
           
           .custom-nav {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 5px;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 10px !important;
           }
           
           .nav-link-custom {
-            justify-content: flex-start;
-            margin: 2px 0;
+            justify-content: flex-start !important;
+            margin: 5px 0 !important;
             padding: 15px 20px !important;
+            border-radius: 10px !important;
           }
         }
         
         @media (max-width: 576px) {
           .brand-name {
-            font-size: 1.1rem;
+            font-size: 1.1rem !important;
           }
           
           .brand-title {
-            font-size: 0.6rem;
+            font-size: 0.6rem !important;
           }
+          
+          .navbar-collapse {
+            top: 70px !important;
+          }
+        }
+      `}</style>
+
+      {/* Global styles to ensure white color */}
+      <style jsx global>{`
+        /* Force white color for brand text */
+        .brand-logo .brand-name,
+        .brand-logo .brand-title {
+          color: #ffffff !important;
+        }
+        
+        /* Ensure navbar brand text is white */
+        .navbar-brand .brand-name,
+        .navbar-brand .brand-title {
+          color: #ffffff !important;
         }
       `}</style>
     </>
