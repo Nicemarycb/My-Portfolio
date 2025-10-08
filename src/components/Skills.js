@@ -203,7 +203,7 @@ const Skills = () => {
                         </div>
 
                         {/* Progress Bar */}
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                           <motion.div
                             custom={skill.level}
                             variants={progressVariants}
@@ -214,7 +214,7 @@ const Skills = () => {
                           >
                             <div className="progress-fill"></div>
                           </motion.div>
-                        </div>
+                        </div> */}
 
                         {/* Skill Description */}
                         <div className="skill-meta">

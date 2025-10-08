@@ -192,7 +192,7 @@ const Header = () => {
                   <FaRocket />
                 </motion.div>
                 <div className="brand-text">
-                  <span className="brand-name">Nice Mary C B</span>
+                  <span className="brand-name text-light">Nice Mary C B</span>
                   <span className="brand-title">Full Stack Developer</span>
                 </div>
               </Navbar.Brand>
@@ -375,8 +375,8 @@ const Header = () => {
         }
         
         .brand-title {
-          font-size: 0.7rem;
-          color: #474a4eff;
+          font-size: 1.7rem;
+          color: #edf5ffff;
           font-weight: 500;
         }
         
